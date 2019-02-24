@@ -86,7 +86,7 @@
 	Process {
         ForEach ($Line in $InputObject)
         {
-		    If ($Line.Contains("<tr>"))
+		    If ($Line.Contains("<tr><td>"))
 		    {	
                 $Line = $Line.Replace("<tr>","<tr class=""$ClassName"">")
 			    If ($ClassName -eq $CSSEvenClass)
@@ -98,7 +98,7 @@
                     $ClassName = $CSSEvenClass
 			    }
 		    }
-		    Return $Line
+		    Write-Output $Line
         }
 	}
 }

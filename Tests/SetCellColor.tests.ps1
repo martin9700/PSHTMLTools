@@ -10,7 +10,7 @@ Server4,test,one,two,three
 "@ | ConvertFrom-Csv | ConvertTo-Html
 
 Import-Module Pester
-$FunctionPath = Split-Path -Path $ScriptPath
+$FunctionPath = Join-Path -Path (Split-Path -Path $ScriptPath) -ChildPath "Source\Public"
 . $FunctionPath\Set-CellColor.ps1
 
 Describe "Set-CellColor testing" {
