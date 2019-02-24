@@ -13,3 +13,10 @@ Tools
 | Set-CellColor       | Change color of individual cells based on supplied conditions |
 | Set-GroupRowColorsByColumn | Alternate rows based on a trigger column changing value | 
 
+
+Installation Instructions
+-------------------------
+
+```powershell
+Find-Module PSHTMLTools | Install-Module
+```
