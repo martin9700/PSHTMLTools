@@ -1,4 +1,4 @@
-﻿Function Set-AlternatingRows {
+﻿Function Set-AlternatingRow {
 	<#
 	.SYNOPSIS
 		Simple function to alternate the row colors in an HTML table
@@ -29,7 +29,7 @@
 
 	.PARAMETER CSSOddClass
 		Define which CSS class is your "odd" row and color.
-	.EXAMPLE $Report | ConvertTo-HTML -Head $Header | Set-AlternateRows -CSSEvenClass even -CSSOddClass odd | Out-File .\HTMLReport.html
+	.EXAMPLE $Report | ConvertTo-HTML -Head $Header | Set-AlternateRow -CSSEvenClass even -CSSOddClass odd | Out-File .\HTMLReport.html
 
 	
 		$Header can be defined with a here-string as:
@@ -49,7 +49,7 @@
 
     .EXAMPLE
         $RawHTML = $Report | ConvertTo-HTML -Head $Header
-        $FinalHTML = Set-AlternateRows -CSSEvenClass even -CSSOddClass odd -InputObject $RawHTML
+        $FinalHTML = Set-AlternateRow -CSSEvenClass even -CSSOddClass odd -InputObject $RawHTML
         $FinalHTML | Out-File .\HTMLReport.html
 
 	.NOTES
