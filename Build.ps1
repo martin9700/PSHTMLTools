@@ -21,7 +21,7 @@ $ModuleInformation = @{
     Author          = "Martin Pugh (@TheSurlyAdm1n)"
     ModuleVersion   = $ENV:APPVEYOR_BUILD_VERSION
     Company         = "www.thesurlyadmin.com"
-    Description     = "Easily build a PowerShell module and manifest from a set of functions contained in individual PS1 files"
+    Description     = "Simple functions to make your HTML from ConvertTo-HTML look a lot better"
     ProjectURI      = "https://github.com/martin9700/PSHTMLTools"
     LicenseURI      = "https://github.com/martin9700/PSHTMLTools/blob/master/LICENSE"
     #IconURI         = "https://pughspace.files.wordpress.com/2017/01/pspublishmodule-icon.png"
@@ -40,7 +40,7 @@ $Results | Format-Table
 $Errors = $Results | Where-Object Severity -eq "Error"
 If ($Errors)
 {
-    Write-Error "One or more Script Analyzer errors/warnings where found. Build cannot continue!" -ErrorAction Stop
+    Write-Error "$(Get-Date): One or more Script Analyzer errors/warnings where found. Build cannot continue!" -ErrorAction Stop
 }
 
 Write-Verbose "$(Get-Date): Script passed"
@@ -54,7 +54,7 @@ $TestResults = Invoke-Pester -PassThru -OutputFormat NUnitXml -OutputFile ".\Tes
 If ($TestResults.FailedCount -gt 0)
 {
     $TestResults | Format-List *
-    Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed" -ErrorAction Stop
+    Write-Error "$(Get-Date): Failed '$($TestResults.FailedCount)' tests, build failed" -ErrorAction Stop
 }
 
 
@@ -69,8 +69,10 @@ If ($ENV:APPVEYOR_FORCED_BUILD -eq "True")
     }
 
     Try {
-        Publish-Module @PublishInformation -ErrorAction Stop
-        Write-Host "Publish to PSGallery successful" -ForegroundColor Green
+        Write-Verbose "$(Get-Date):" -Verbose
+        Write-Verbose "$(Get-Date): Publishing to Microsoft" -Verbose
+        Publish-Module @PublishInformation -ErrorAction Stop -Verbose
+        Write-Host "`n`nPublish to PSGallery successful" -ForegroundColor Green
     }
     Catch {
         Write-Error "Publish to PSGallery failed because ""$_""" -ErrorAction Stop
