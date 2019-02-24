@@ -10,8 +10,15 @@ Server4,test,one,two,three
 "@ | ConvertFrom-Csv | ConvertTo-Html
 
 Import-Module Pester
-$FunctionPath = Join-Path -Path (Split-Path -Path $ScriptPath) -ChildPath "Source\Public"
-. $FunctionPath\Set-CellColor.ps1
+
+#Used for Appveyor
+$ModulePath = Join-Path (Split-Path -Path $ScriptPath) -ChildPath PSHTMLTools
+Import-Module $ModulePath
+
+
+#Used for local testing
+#$FunctionPath = Join-Path -Path (Split-Path -Path $ScriptPath) -ChildPath "Source\Public"
+#. $FunctionPath\Set-GroupRowColorsByColumn.ps1   
 
 Describe "Set-CellColor testing" {
     It "Set a single cell to red" {

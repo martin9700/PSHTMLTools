@@ -21,8 +21,16 @@ Server3,test,four,five,six
 "@ | ConvertFrom-Csv | ConvertTo-Html -Head $Header
 
 Import-Module Pester
-$FunctionPath = Join-Path -Path (Split-Path -Path $ScriptPath) -ChildPath "Source\Public"
-. $FunctionPath\Set-GroupRowColorsByColumn.ps1
+
+#Used for Appveyor
+$ModulePath = Join-Path (Split-Path -Path $ScriptPath) -ChildPath PSHTMLTools
+Import-Module $ModulePath
+
+
+#Used for local testing
+#$FunctionPath = Join-Path -Path (Split-Path -Path $ScriptPath) -ChildPath "Source\Public"
+#. $FunctionPath\Set-GroupRowColorsByColumn.ps1   
+
 
 
 Describe "Testing Set-GroupRowColorsByColumn" {

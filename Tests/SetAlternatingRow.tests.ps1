@@ -21,8 +21,15 @@ Server4,test,one,two,three
 
 
 Import-Module Pester
-$FunctionPath = Join-Path -Path (Split-Path -Path $ScriptPath) -ChildPath "Source\Public"
-. $FunctionPath\Set-AlternatingRow.ps1
+
+#Used for Appveyor
+$ModulePath = Join-Path (Split-Path -Path $ScriptPath) -ChildPath PSHTMLTools
+Import-Module $ModulePath
+
+
+#Used for local testing
+#$FunctionPath = Join-Path -Path (Split-Path -Path $ScriptPath) -ChildPath "Source\Public"
+#. $FunctionPath\Set-GroupRowColorsByColumn.ps1   
 
 Describe "Testing Set-AlternatingRow" {
     It "Test alernating rows through pipeline" {
