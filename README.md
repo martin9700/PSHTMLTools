@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/jsy9xqt0t8atdan5?svg=true)](https://ci.appveyor.com/project/MartinPugh/pshtmltools)
+
 # PSHTMLTools
 Simple tools to pretty up the HTML from ConvertTo-HTML
 
