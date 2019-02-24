@@ -103,8 +103,7 @@
             {
                 If ($Line -notlike "*$ColumnName*")
                 {
-                    Write-Error "Unable to locate a column named $ColumnName"
-                    Exit 999
+                    Write-Error "Unable to locate a column named $ColumnName" -ErrorAction Stop
                 }
                 $Search = $Line | Select-String -Pattern "<th>.*?</th>" -AllMatches
                 $Index = 0
