@@ -74,6 +74,7 @@
         Blog:               www.thesurlyadmin.com
           
         Changelog:
+            2.1             Fix bug with escaped characters
             2.0             Major rewrite, now only replaces the column you specify (finally). Property parameter has been eliminated. 
             1.5             Added ability to set row color with -Row switch instead of the individual cell
             1.03            Added error message in case the $Property field cannot be found in the table header
@@ -174,7 +175,7 @@
                         $Pattern = ".*?"
                         ForEach ($Column in $Search.Matches)
                         {
-                            $Pattern = "$Pattern$($Column.Groups[1].Value)</td>.*?"
+                            $Pattern = "$Pattern$([RegEx]::Escape($Column.Groups[1].Value))</td>.*?"
                             If ($Count -eq $Index - 1)
                             {
                                 Break
@@ -183,7 +184,7 @@
                         }
                         $null = $Line -match $Pattern
                         $StartsWith = $Matches.Values
-                        $NewLine = $Line -replace $StartsWith,''
+                        $NewLine = $Line -replace ([RegEx]::Escape($StartsWith)),''
                         $NewLine = $NewLine -replace '^<td ?(style="background-color:.*")?>.*?<\/td>',"<td style=""background-color:$Color"">$Value</td>"
                         $Line = "$StartsWith$($NewLine)"
                     }

@@ -7,6 +7,8 @@ Server1,1,2,3,4
 Server2,1,1,2,4
 Server3,1,1,1,1
 Server4,test,one,two,three
+Server5.test,4,4,4,4
+.[?]\,4,3,2,1
 "@ | ConvertFrom-Csv | ConvertTo-Html
 
 Import-Module Pester
@@ -18,7 +20,8 @@ Import-Module $ModulePath
 
 #Used for local testing
 #$FunctionPath = Join-Path -Path (Split-Path -Path $ScriptPath) -ChildPath "Source\Public"
-#. $FunctionPath\Set-GroupRowColorsByColumn.ps1   
+#. $FunctionPath\Set-GroupRowColorsByColumn.ps1
+#. $FunctionPath\Set-CellColor.ps1
 
 Describe "Set-CellColor testing" {
     It "Set a single cell to red" {
@@ -36,6 +39,8 @@ Describe "Set-CellColor testing" {
             "<tr><td>Server2</td><td>1</td><td>1</td><td>2</td><td>4</td></tr>"
             "<tr><td>Server3</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>"
             "<tr><td>Server4</td><td>test</td><td>one</td><td>two</td><td>three</td></tr>"
+            "<tr><td>Server5.test</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>"
+            "<tr><td>.[?]\</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>"
             "</table>"
             "</body></html>"
         ) | Out-String        
@@ -57,6 +62,8 @@ Describe "Set-CellColor testing" {
             "<tr><td>Server2</td><td style=""background-color:Red"">1</td><td>1</td><td>2</td><td>4</td></tr>"
             "<tr><td>Server3</td><td style=""background-color:Red"">1</td><td>1</td><td>1</td><td>1</td></tr>"
             "<tr><td>Server4</td><td>test</td><td>one</td><td>two</td><td>three</td></tr>"
+            "<tr><td>Server5.test</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>"
+            "<tr><td>.[?]\</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>"
             "</table>"
             "</body></html>"
         ) | Out-String
@@ -82,13 +89,15 @@ Describe "Set-CellColor testing" {
             "<tr><td>Server2</td><td>1</td><td>1</td><td>2</td><td>4</td></tr>"
             "<tr><td>Server3</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>"
             "<tr><td>Server4</td><td>test</td><td>one</td><td>two</td><td>three</td></tr>"
+            "<tr><td>Server5.test</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>"
+            "<tr><td>.[?]\</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>"
             "</table>"
             "</body></html>"
         ) | Out-String
         $Test | Should Be $Result
     }
 
-    It "Row highlight" {
+    It "Row highlight - with escaped characters" {
         $Test = $StartHTML | Set-CellColor -Color Red -Filter "Column3 -eq 2" -Row | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
@@ -103,14 +112,17 @@ Describe "Set-CellColor testing" {
             "<tr style=""background-color:Red""><td>Server2</td><td>1</td><td>1</td><td>2</td><td>4</td></tr>"
             "<tr><td>Server3</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>"
             "<tr><td>Server4</td><td>test</td><td>one</td><td>two</td><td>three</td></tr>"
+            "<tr><td>Server5.test</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>"
+            "<tr style=""background-color:Red""><td>.[?]\</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>"
             "</table>"
             "</body></html>"
         ) | Out-String
         $Test | Should Be $Result
     }
 
-    It "Test 2 different filters" {
-        $Test = $StartHTML | Set-CellColor -Color Red -Filter "Column3 -eq 2" | Set-CellColor -Color Blue -Filter "Column4 -eq ""three""" | Out-String
+    It "Test 2 different filters - with escaped characters" {
+        $Test = $StartHTML | Set-CellColor -Color Red -Filter "Column3 -eq 2" 
+        $Test = $Test | Set-CellColor -Color Blue -Filter "Column4 -eq ""three""" | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
             "<html xmlns=""http://www.w3.org/1999/xhtml"">"
@@ -124,6 +136,8 @@ Describe "Set-CellColor testing" {
             "<tr><td>Server2</td><td>1</td><td>1</td><td style=""background-color:Red"">2</td><td>4</td></tr>"
             "<tr><td>Server3</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>"
             "<tr><td>Server4</td><td>test</td><td>one</td><td>two</td><td style=""background-color:Blue"">three</td></tr>"
+            "<tr><td>Server5.test</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>"
+            "<tr><td>.[?]\</td><td>4</td><td>3</td><td style=""background-color:Red"">2</td><td>1</td></tr>"
             "</table>"
             "</body></html>"
         ) | Out-String
@@ -145,6 +159,8 @@ Describe "Set-CellColor testing" {
             "<tr><td>Server2</td><td>1</td><td>1</td><td>2</td><td>4</td></tr>"
             "<tr><td>Server3</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>"
             "<tr><td>Server4</td><td>test</td><td>one</td><td>two</td><td>three</td></tr>"
+            "<tr><td>Server5.test</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>"
+            "<tr><td>.[?]\</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>"
             "</table>"
             "</body></html>"
         ) | Out-String
