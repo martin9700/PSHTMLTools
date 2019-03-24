@@ -1,0 +1,3 @@
+Set-Alias -Name Set-AlternatingRow            -Value Set-PSHAlternatingRows
+Set-Alias -Name Set-CellColor                 -Value Set-PSHCellColor
+Set-Alias -Name Set-GroupRowColorsByColumn    -Value Set-PSHGroupRowColorsByColumn

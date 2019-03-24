@@ -21,11 +21,11 @@ Import-Module $ModulePath
 #Used for local testing
 #$FunctionPath = Join-Path -Path (Split-Path -Path $ScriptPath) -ChildPath "Source\Public"
 #. $FunctionPath\Set-GroupRowColorsByColumn.ps1
-#. $FunctionPath\Set-CellColor.ps1
+#. $FunctionPath\Set-PSHCellColor.ps1
 
-Describe "Set-CellColor testing" {
+Describe "Set-PSHCellColor testing" {
     It "Set a single cell to red" {
-        $Test = $StartHTML | Set-CellColor -Color Red -Filter "Column3 -eq 3" | Out-String
+        $Test = $StartHTML | Set-PSHCellColor -Color Red -Filter "Column3 -eq 3" | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
             "<html xmlns=""http://www.w3.org/1999/xhtml"">"
@@ -48,7 +48,7 @@ Describe "Set-CellColor testing" {
     }
 
     It "Set multiple cells to red" {
-        $Test = $StartHTML | Set-CellColor -Color Red -Filter "Column1 -eq 1" | Out-String
+        $Test = $StartHTML | Set-PSHCellColor -Color Red -Filter "Column1 -eq 1" | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
             "<html xmlns=""http://www.w3.org/1999/xhtml"">"
@@ -71,11 +71,11 @@ Describe "Set-CellColor testing" {
     }
 
     It "Bad column Name" {
-        { $StartHTML | Set-CellColor -Color Red -Filter "nothingburger -eq 1" } | Should Throw
+        { $StartHTML | Set-PSHCellColor -Color Red -Filter "nothingburger -eq 1" } | Should Throw
     }
 
     It "No matches" {
-        $Test = $StartHTML | Set-CellColor -Color Red -Filter "Column1 -eq 22" | Out-String
+        $Test = $StartHTML | Set-PSHCellColor -Color Red -Filter "Column1 -eq 22" | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
             "<html xmlns=""http://www.w3.org/1999/xhtml"">"
@@ -98,7 +98,7 @@ Describe "Set-CellColor testing" {
     }
 
     It "Row highlight - with escaped characters" {
-        $Test = $StartHTML | Set-CellColor -Color Red -Filter "Column3 -eq 2" -Row | Out-String
+        $Test = $StartHTML | Set-PSHCellColor -Color Red -Filter "Column3 -eq 2" -Row | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
             "<html xmlns=""http://www.w3.org/1999/xhtml"">"
@@ -121,8 +121,8 @@ Describe "Set-CellColor testing" {
     }
 
     It "Test 2 different filters - with escaped characters" {
-        $Test = $StartHTML | Set-CellColor -Color Red -Filter "Column3 -eq 2" 
-        $Test = $Test | Set-CellColor -Color Blue -Filter "Column4 -eq ""three""" | Out-String
+        $Test = $StartHTML | Set-PSHCellColor -Color Red -Filter "Column3 -eq 2" 
+        $Test = $Test | Set-PSHCellColor -Color Blue -Filter "Column4 -eq ""three""" | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
             "<html xmlns=""http://www.w3.org/1999/xhtml"">"
@@ -145,7 +145,7 @@ Describe "Set-CellColor testing" {
     }
 
     It "Two conditions in one filter" {
-        $Test = $StartHTML | Set-CellColor -Color Red -Filter "Column2 -gt 1 -and Column2 -lt 3" | Out-String
+        $Test = $StartHTML | Set-PSHCellColor -Color Red -Filter "Column2 -gt 1 -and Column2 -lt 3" | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
             "<html xmlns=""http://www.w3.org/1999/xhtml"">"
@@ -168,7 +168,7 @@ Describe "Set-CellColor testing" {
     }
 
     It "Two different columns, one filter (not allowed)" {
-        { $StartHTML | Set-CellColor -Color Red -Filter "Column3 -eq 2 -or Column4 -eq ""three""" } | Should Throw
+        { $StartHTML | Set-PSHCellColor -Color Red -Filter "Column3 -eq 2 -or Column4 -eq ""three""" } | Should Throw
     }
 }
 

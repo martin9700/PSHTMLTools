@@ -29,13 +29,13 @@ Import-Module $ModulePath
 
 #Used for local testing
 #$FunctionPath = Join-Path -Path (Split-Path -Path $ScriptPath) -ChildPath "Source\Public"
-#. $FunctionPath\Set-GroupRowColorsByColumn.ps1   
+#. $FunctionPath\Set-PSHGroupRowColorsByColumn.ps1   
 
 
 
-Describe "Testing Set-GroupRowColorsByColumn" {
+Describe "Set-PSHGroupRowColorsByColumn testing" {
     It "Test group coloring by pipeline" {
-        $Test = $StartHTML | Set-GroupRowColorsByColumn -ColumnName Server -CSSEvenClass even -CSSOddClass odd | Out-String
+        $Test = $StartHTML | Set-PSHGroupRowColorsByColumn -ColumnName Server -CSSEvenClass even -CSSOddClass odd | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
             "<html xmlns=""http://www.w3.org/1999/xhtml"">"
@@ -64,7 +64,7 @@ Describe "Testing Set-GroupRowColorsByColumn" {
     }
 
     It "Test group coloring by parameter" {
-        $Test = Set-GroupRowColorsByColumn -InputObject $StartHTML -ColumnName Server -CSSEvenClass even -CSSOddClass odd | Out-String
+        $Test = Set-PSHGroupRowColorsByColumn -InputObject $StartHTML -ColumnName Server -CSSEvenClass even -CSSOddClass odd | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
             "<html xmlns=""http://www.w3.org/1999/xhtml"">"
@@ -93,6 +93,6 @@ Describe "Testing Set-GroupRowColorsByColumn" {
     }
 
     It "Bad column name" {
-        { $StartHTML | Set-GroupRowColorsByColumn -ColumnName nothingburger -CSSEvenClass even -CSSOddClass odd } | Should Throw
+        { $StartHTML | Set-PSHGroupRowColorsByColumn -ColumnName nothingburger -CSSEvenClass even -CSSOddClass odd } | Should Throw
     }
 }

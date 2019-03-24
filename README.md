@@ -9,14 +9,16 @@ Tools
 
 | Function            | Comments                                                      |
 | ------------------- | ------------------------------------------------------------- |
-| Set-AlternatingRows | Alternate every row in a HTML table to different colors       |
-| Set-CellColor       | Change color of individual cells based on supplied conditions |
-| Set-GroupRowColorsByColumn | Alternate rows based on a trigger column changing value | 
+| Set-PSHAlternatingRows | Alternate every row in a HTML table to different colors       |
+| Set-PSHCellColor       | Change color of individual cells based on supplied conditions |
+| Set-PSHGroupRowColorsByColumn | Alternate rows based on a trigger column changing value | 
+| Set-PSHLinks | Find URL's in the HTML and turn them into clickable links |
 
 
 Installation Instructions
 -------------------------
 
 ```powershell
-Find-Module PSHTMLTools | Install-Module
+Install-Module PSHTMLTools
 ```
+

@@ -1,4 +1,4 @@
-﻿Function Set-GroupRowColorsByColumn {
+﻿Function Set-PSHGroupRowColorsByColumn {
     <#
     .SYNOPSIS
         Set rows to alternating colors based on the value of a cell
@@ -96,6 +96,11 @@
         [string]$CSSEvenClass = "TREven",
         [string]$CSSOddClass = "TROdd"
     )
+
+    Begin {
+        Write-Verbose "$(Get-Date): Set-PSHGroupRowColorsByColumn starting"
+    }
+
     Process {
         ForEach ($Line in $InputObject)
         {
@@ -135,5 +140,9 @@
             }
             Write-Output $Line
         }
+    }
+
+    End {
+        Write-Verbose "$(Get-Date): Set-PSHGroupRowColorsByColumn completed"
     }
 }

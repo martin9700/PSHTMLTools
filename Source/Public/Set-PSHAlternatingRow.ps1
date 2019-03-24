@@ -1,4 +1,4 @@
-﻿Function Set-AlternatingRow {
+﻿Function Set-PSHAlternatingRow {
 	<#
 	.SYNOPSIS
 		Simple function to alternate the row colors in an HTML table
@@ -80,9 +80,12 @@
         [Parameter(Mandatory)]
    	    [string]$CSSOddClass
    	)
+
 	Begin {
+        Write-Verbose "$(Get-Date): Set-PSHAlternatingRows starting"
 		$ClassName = $CSSEvenClass
 	}
+
 	Process {
         ForEach ($Line in $InputObject)
         {
@@ -101,4 +104,8 @@
 		    Write-Output $Line
         }
 	}
+
+    End {
+        Write-Verbose "$(Get-Date): Set-PSHAlternatingRows completed"
+    }
 }

@@ -1,4 +1,4 @@
-﻿Function Set-CellColor
+﻿Function Set-PSHCellColor
 {   <#
     .SYNOPSIS
         Function that allows you to set individual cell colors in an HTML table
@@ -101,7 +101,7 @@
     )
     
     Begin {
-        Write-Verbose "$(Get-Date): Function Set-CellColor begins"
+        Write-Verbose "$(Get-Date): Function Set-PSHCellColor starting"
     }
     
     Process {
@@ -195,6 +195,6 @@
     }
     
     End {
-        Write-Verbose "$(Get-Date): Function Set-CellColor completed"
+        Write-Verbose "$(Get-Date): Function Set-PSHCellColor completed"
     }
 }

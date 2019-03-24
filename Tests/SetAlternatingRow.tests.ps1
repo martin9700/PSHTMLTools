@@ -31,9 +31,9 @@ Import-Module $ModulePath
 #$FunctionPath = Join-Path -Path (Split-Path -Path $ScriptPath) -ChildPath "Source\Public"
 #. $FunctionPath\Set-GroupRowColorsByColumn.ps1   
 
-Describe "Testing Set-AlternatingRow" {
+Describe "Set-PSHAlternatingRow testing" {
     It "Test alernating rows through pipeline" {
-        $Test = $StartHTML | Set-AlternatingRow -CSSEvenClass even -CSSOddClass odd | Out-String
+        $Test = $StartHTML | Set-PSHAlternatingRow -CSSEvenClass even -CSSOddClass odd | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
             "<html xmlns=""http://www.w3.org/1999/xhtml"">"
@@ -61,7 +61,7 @@ Describe "Testing Set-AlternatingRow" {
     }
 
     It "Test alernating rows through parameter" {
-        $Test = Set-AlternatingRow -InputObject $StartHTML -CSSEvenClass even -CSSOddClass odd | Out-String
+        $Test = Set-PSHAlternatingRow -InputObject $StartHTML -CSSEvenClass even -CSSOddClass odd | Out-String
         $Result = @(
             "<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Strict//EN""  ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"">"
             "<html xmlns=""http://www.w3.org/1999/xhtml"">"
